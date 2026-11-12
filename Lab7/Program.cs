@@ -1,6 +1,4 @@
-﻿using System.Diagnostics;
-
-Player player = new Player("Maciuś", 100, 25);
+﻿Player player = new Player("Maciuś", 100, 25);
 //Player player1 = new Player("Jacuś", 110, 35);
 //Player player2 = new Player("Szymuś", 120, 45);
 

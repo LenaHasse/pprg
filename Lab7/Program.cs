@@ -1,6 +1,8 @@
-﻿Player player = new Player("Maciuś", 100, 25);
-Player player1 = new Player("Jacuś", 110, 35);
-Player player2 = new Player("Szymuś", 120, 45);
+﻿using System.Diagnostics;
+
+Player player = new Player("Maciuś", 100, 25);
+//Player player1 = new Player("Jacuś", 110, 35);
+//Player player2 = new Player("Szymuś", 120, 45);
 
 Enemy goblin = new Enemy("Goblin", 30, 8, "Melee",0.1,10);
 Enemy nietoperz = new Enemy("Nietoperz",20,5,"Air",0.5,5);
@@ -10,6 +12,9 @@ Enemy smok=new Enemy("Smok",100,16,"Fire",0.05,100);
 
 Item malaMikstura = new Item("Mała mikstura", 20, 3);
 Item duzaMikstura = new Item("Duża mikstura", 50, 1);
+
+player.AddItem(malaMikstura);
+player.AddItem(duzaMikstura);
 
 List<Enemy> enemies = new List<Enemy>
 {
@@ -44,78 +49,107 @@ List<Enemy> enemies = new List<Enemy>
 
 //zad3
 //scenariusz Szymuś i nietoperz
-Console.WriteLine("Walka Szymusia i nietoperza");
-while (player2.IsAlive() && nietoperz.IsAlive())
+// Console.WriteLine("Walka Szymusia i nietoperza");
+// while (player2.IsAlive() && nietoperz.IsAlive())
+// {
+//     Console.WriteLine("Szymuś atakuje");
+//     nietoperz.TakeDamage(12);
+//     Console.WriteLine($"Nietoperz ma {nietoperz.Health} hp");
+//         if (ork.IsAlive())
+//     {
+//         Console.WriteLine("Nietoperz atakuje");
+//         player2.TakeDamage(10);
+//         Console.WriteLine($"Szymus ma {player2.Health} hp");
+//     }
+// }
+
+// if (player2.IsAlive())
+// {
+//     Console.WriteLine($"{player2.Name} wygrał!");
+// }
+// else
+// {
+//     Console.WriteLine($"{nietoperz.Name} wygrał!\n");
+// }
+
+// //scenariusz Jacuś i ork
+// Console.WriteLine("Walka Jacusia i orka");
+// while (player1.IsAlive() && ork.IsAlive())
+// {
+//     Console.WriteLine("Jacuś atakuje");
+//     ork.TakeDamage(12);
+//     Console.WriteLine($"Ork ma {ork.Health} hp");
+
+//     if (ork.IsAlive())
+//     {
+//         Console.WriteLine("Ork atakuje");
+//         player1.TakeDamage(10);
+//         Console.WriteLine($"Jacuś ma {player1.Health} hp");
+//     }
+// }
+
+// if (player1.IsAlive())
+// {
+//     Console.WriteLine($"{player1.Name} wygrał!");
+// }
+// else
+// {
+//     Console.WriteLine($"{ork.Name} wygrał!");
+// }
+
+// TuraWalki(wyborPrzeciwnika());
+
+ShowEnemiesStatus();
+//PĘTLA GRY
+bool gameRunning=true;
+while (gameRunning && player.IsAlive() && DefeatedEnemies()<enemies.Count)
 {
-    Console.WriteLine("Szymuś atakuje");
-    nietoperz.TakeDamage(12);
-    Console.WriteLine($"Nietoperz ma {nietoperz.Health} hp");
-        if (ork.IsAlive())
-    {
-        Console.WriteLine("Nietoperz atakuje");
-        player2.TakeDamage(10);
-        Console.WriteLine($"Szymus ma {player2.Health} hp");
-    }
+    gameRunning=Menu();
 }
-
-if (player2.IsAlive())
+if (!player.IsAlive())
 {
-    Console.WriteLine($"{player2.Name} wygrał!");
+    Console.WriteLine("Gracz został pokonany");
 }
-else
+else if (DefeatedEnemies()==enemies.Count)
 {
-    Console.WriteLine($"{nietoperz.Name} wygrał!\n");
+    Console.WriteLine("Zwycięstwo! Pokonano wszystkich przeciwników");
 }
-
-//scenariusz Jacuś i ork
-Console.WriteLine("Walka Jacusia i orka");
-while (player1.IsAlive() && ork.IsAlive())
-{
-    Console.WriteLine("Jacuś atakuje");
-    ork.TakeDamage(12);
-    Console.WriteLine($"Ork ma {ork.Health} hp");
-
-    if (ork.IsAlive())
-    {
-        Console.WriteLine("Ork atakuje");
-        player1.TakeDamage(10);
-        Console.WriteLine($"Jacuś ma {player1.Health} hp");
-    }
-}
-
-if (player1.IsAlive())
-{
-    Console.WriteLine($"{player1.Name} wygrał!");
-}
-else
-{
-    Console.WriteLine($"{ork.Name} wygrał!");
-}
-
-TuraWalki(wyborPrzeciwnika());
-
-
+ShowSummary();
+//==========================================================================
 //metody
+int DefeatedEnemies()
+    {
+        List<Enemy> niezywiEnemies=new List<Enemy>();
+        foreach (Enemy enemy in enemies)
+        {
+            if (!enemy.IsAlive())
+            niezywiEnemies.Add(enemy);
+        }
+        return niezywiEnemies.Count;
+    }
 
 void ShowEnemiesStatus()
 {
     int ileNiezywych=0;
     int sumaHp=0;
     List<Enemy> zywiEnemy=new List<Enemy>();
-    Console.WriteLine("\nŻywi:");
+    Console.WriteLine("\n=====ŻYWI PRZECIWNICY=====");
     foreach (Enemy enemy in enemies)
     {
         if ( enemy.IsAlive())
         {
             zywiEnemy.Add(enemy);
             sumaHp+=enemy.Health;
+            Console.Write("- ");
             Console.WriteLine(enemy.Name);
         }
         else
         {
             ileNiezywych++;
         }
+        
     }
+    Console.WriteLine("==========================");
 
     Enemy maxHp = zywiEnemy[0];
 
@@ -158,6 +192,71 @@ Enemy wyborPrzeciwnika()
     );
     return zywiEnemy[wybor-1];
 }
+
+bool Menu()
+{
+    Console.WriteLine("========MENU========");
+    Console.WriteLine("1.Walcz z przeciwnikiem \n2. Pokaż status\n3.Pokaż ekwipunek\n4.Użyj przedmiotu\n5.Zakończ");
+    if (!int.TryParse(Console.ReadLine(), out int wybor))
+    {
+        Console.WriteLine("Błąd: wpisz odpowiednią liczbę");
+        return true;
+    }
+
+    switch (wybor)
+    {
+        
+        case 1:
+            TuraWalki(wyborPrzeciwnika());
+            break;
+
+        case 2:
+            ShowStatusPlayer(player);
+            break;
+
+        case 3:
+            player.ShowInventory();
+            break;
+
+        case 4:
+            player.ShowInventory();
+            Console.Write("Podaj numer przedmiotu: ");
+
+            if (int.TryParse(Console.ReadLine(), out int numer))
+                {
+                    player.UseItem(numer - 1);
+                }
+                else
+                {
+                    Console.WriteLine("Błąd: wpisz numer przedmiotu.");
+                }
+                break;
+
+        case 5:
+            Console.WriteLine("Koniec gry");
+            return false;
+
+        default:
+            Console.WriteLine("Nieprawidłowa opcja");
+            break;
+    }
+    return true;
+}
+
+void ShowSummary()
+{
+    Console.WriteLine("=====PODSUMOWANIE======");
+    Console.WriteLine($"Imię: {player.Name}");
+    Console.WriteLine($"HP: {player.Health}/{player.MaxHealth}");
+    Console.WriteLine($"Złoto: {player.Gold}");
+    Console.WriteLine($"Poziom: {player.Level}");
+    Console.WriteLine($"Punkty doświadczenia: {player.Experience}/100");
+    Console.WriteLine($"Pokonani przeciwnicy {DefeatedEnemies()}");
+    Console.WriteLine("\n=====EKWIPUNEK=====");
+    player.ShowInventory();
+    Console.WriteLine("===================");
+
+}
 void ShowStatusPlayer(Player player)
 {
     Console.WriteLine($"==== STATUS {player.Name} ====");
@@ -197,6 +296,7 @@ void TuraWalki(Enemy enemy)
         {
             Console.WriteLine($"{enemy.Name} został pokonany!");
             player.Gold += enemy.Reward;
+            player.GainExperience(5);
             Console.WriteLine($"Otrzymano {enemy.Reward} złota.");
             break;
         }

@@ -6,6 +6,7 @@ public class Player
     public int Gold { get; set; }
     public int Level { get; set; }
     public int Experience { get; set; }
+    public List<Item> Inventory {get; set; }
 
 
     public Player(string name, int maxHealth, int gold)
@@ -16,6 +17,7 @@ public class Player
         Gold = gold;
         Level=1;
         Experience=0;
+        Inventory = new List<Item>();
     }
 
     public void TakeDamage(int damage)
@@ -30,9 +32,9 @@ public class Player
             Console.WriteLine("error nieprawidłowa wartość obrażeń");
             return;
         }
-        Health -= damage;
+        Health = Math.Max(0, Health - damage);
 
-        if (Health==0)
+        if (Health == 0)
         {
             Console.WriteLine("Pokonany");
         }
@@ -75,4 +77,29 @@ public class Player
             }
         }
     }
+
+    public void AddItem(Item item)
+    {
+        Inventory.Add(item);
+    }
+
+    public void ShowInventory()
+    {
+        for (int i=0; i<Inventory.Count; i++)
+        {
+            Console.WriteLine($"{i+1}. {Inventory[i].Name} x{Inventory[i].Quantity}");
+        }
+    }
+
+    public void UseItem(int index)
+    {
+        if (index<0 || index>=Inventory.Count)
+        {
+            Console.WriteLine("Nie ma  takiego przedmiotu");
+            return;
+        }
+
+        Inventory[index].UseOne(this);
+    }
+
 }

@@ -12,3 +12,4 @@ GamePrinter.ShowCharacter(enemy.Name, enemy.Health);
 GamePrinter.ShowItem(item.Name, item.Price);
 
 Weapon bron = new Weapon("Miecz", 8);
+Console.WriteLine($"\n{bron.Name} zadaje {bron.Damage} obrażeń");

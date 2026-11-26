@@ -1,9 +1,4 @@
-﻿using RogueArena.App.UI;
-using RogueArena.Core.Characters;
-using RogueArena.Core.Combat;
-using RogueArena.Core.Items;
-
-Hero hero = new Hero("Ada", 100);
+﻿Hero hero = new Hero("Ada", 100);
 Monster monster = new Monster("Ork", 45);
 Inventory inventory = new Inventory();
 

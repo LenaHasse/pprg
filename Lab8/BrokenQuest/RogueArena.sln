@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RogueArena.App", "RogueAren
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RogueArena.Core", "RogueArena.Core\RogueArena.Core.csproj", "{C631F966-18F9-4849-95B4-FFD792A03833}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RogueArena.Reporting", "RogueArena.Reporting\RogueArena.Reporting.csproj", "{FFF36672-7CA8-4E49-9478-27E87A2E8260}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{C631F966-18F9-4849-95B4-FFD792A03833}.Release|x64.Build.0 = Release|Any CPU
 		{C631F966-18F9-4849-95B4-FFD792A03833}.Release|x86.ActiveCfg = Release|Any CPU
 		{C631F966-18F9-4849-95B4-FFD792A03833}.Release|x86.Build.0 = Release|Any CPU
+		{FFF36672-7CA8-4E49-9478-27E87A2E8260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFF36672-7CA8-4E49-9478-27E87A2E8260}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFF36672-7CA8-4E49-9478-27E87A2E8260}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FFF36672-7CA8-4E49-9478-27E87A2E8260}.Debug|x64.Build.0 = Debug|Any CPU
+		{FFF36672-7CA8-4E49-9478-27E87A2E8260}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FFF36672-7CA8-4E49-9478-27E87A2E8260}.Debug|x86.Build.0 = Debug|Any CPU
+		{FFF36672-7CA8-4E49-9478-27E87A2E8260}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFF36672-7CA8-4E49-9478-27E87A2E8260}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFF36672-7CA8-4E49-9478-27E87A2E8260}.Release|x64.ActiveCfg = Release|Any CPU
+		{FFF36672-7CA8-4E49-9478-27E87A2E8260}.Release|x64.Build.0 = Release|Any CPU
+		{FFF36672-7CA8-4E49-9478-27E87A2E8260}.Release|x86.ActiveCfg = Release|Any CPU
+		{FFF36672-7CA8-4E49-9478-27E87A2E8260}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
